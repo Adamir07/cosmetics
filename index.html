@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Marché Adja — Everyday Staples from Lomé</title>
+<title>Adja Beauté — Cosmétiques & Soins depuis Lomé</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..800&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
@@ -178,6 +178,9 @@
     font-size:2.6rem; cursor:pointer; overflow:hidden; transition:transform .3s ease;
   }
   .card:hover .thumb{ transform:scale(1.03); }
+  .thumb-icon{ width:52%; height:52%; display:block; }
+  .thumb-icon svg{ width:100%; height:100%; display:block; }
+  .thumb-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
   .thumb .wm{
     position:absolute; inset:0;
     background-image:repeating-linear-gradient(-35deg, rgba(255,255,255,0.16) 0 2px, transparent 2px 46px);
@@ -247,6 +250,7 @@
     position:absolute; top:16px; right:16px; background:none; border:none; font-size:1.3rem; cursor:pointer; color:var(--ink);
   }
   .modal-thumb{ height:150px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:3rem; margin-bottom:16px; position:relative; overflow:hidden;}
+  .modal-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
   .modal h3{ font-size:1.4rem; margin-bottom:2px; }
   .modal .price-line{ display:flex; align-items:center; gap:12px; margin:10px 0 16px; }
   .modal-section{ margin-top:14px; }
@@ -256,7 +260,9 @@
   .related-row{ display:flex; gap:10px; margin-top:8px; }
   .related-item{ flex:1; border:1px solid var(--line); border-radius:10px; padding:8px; cursor:pointer; text-align:center; transition:border-color .15s ease; }
   .related-item:hover{ border-color:var(--palm); }
-  .related-item .em{ font-size:1.4rem; }
+  .related-item .em{ width:28px; height:28px; margin:0 auto; opacity:.75; border-radius:6px; overflow:hidden; }
+  .related-item .em svg{ width:100%; height:100%; display:block; }
+  .related-item .em img{ width:100%; height:100%; object-fit:cover; display:block; }
   .related-item .rn{ font-size:.68rem; margin-top:4px; }
   .related-item .rp{ font-family:'IBM Plex Mono',monospace; font-size:.7rem; opacity:.7; }
 
@@ -273,7 +279,10 @@
   .drawer h3{ margin-bottom:6px; }
   .drawer .sub-note{ font-size:.76rem; opacity:.6; margin-bottom:16px; font-family:'IBM Plex Mono',monospace;}
   .cart-item{ display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--line); align-items:center; }
-  .cart-item .thumb-mini{ width:52px; height:52px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; position:relative; overflow:hidden;}
+  .cart-item .thumb-mini{ width:52px; height:52px; border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; position:relative; overflow:hidden;}
+  .thumb-icon-mini{ width:50%; height:50%; display:block; }
+  .thumb-icon-mini svg{ width:100%; height:100%; display:block; }
+  .thumb-img-mini{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
   .cart-item .info{ flex:1; }
   .cart-item .info .name{ font-weight:600; font-size:.92rem; }
   .cart-item .info .unit{ font-size:.75rem; opacity:.6; font-family:'IBM Plex Mono',monospace; }
@@ -332,148 +341,48 @@
   .footer-col p, .footer-col a{ opacity:.75; line-height:1.6; display:block; text-decoration:none; margin-bottom:2px;}
   .footer-bottom{ text-align:center; opacity:.55; font-size:.75rem; border-top:1px solid var(--line); padding-top:16px; }
 
- /* ================= MOBILE ================= */
-@media (max-width:768px){
-
-  header{
-    padding:12px 16px;
-    flex-wrap:wrap;
-    gap:12px;
+  @media (max-width:560px){
+    .hero{ padding:40px 5vw 26px; }
+    .method-choice{ flex-direction:column; }
+    .trust-strip div{ border-right:none; border-bottom:1px solid var(--line); }
+    .brand small{ display:none; }
   }
-
-  .brand h1{
-    font-size:1rem;
-  }
-
-  .header-actions{
-    width:100%;
-    justify-content:space-between;
-  }
-
-  .icon-btn{
-    flex:1;
-    justify-content:center;
-    padding:10px;
-    font-size:.75rem;
-  }
-
-  .hero{
-    padding:30px 16px;
-  }
-
-  .hero h2{
-    font-size:2rem;
-    line-height:1.15;
-  }
-
-  .hero p{
-    font-size:.95rem;
-  }
-
-  .hero-cta{
-    flex-direction:column;
-  }
-
-  .hero-cta .btn{
-    width:100%;
-  }
-
-  .section{
-    padding:20px 16px 50px;
-  }
-
-  .controls{
-    flex-direction:column;
-    align-items:stretch;
-  }
-
-  .search-box,
-  #sortSelect{
-    width:100%;
-  }
-
-  .grid{
-    grid-template-columns:1fr;
-    gap:16px;
-  }
-
-  .card{
-    width:100%;
-  }
-
-  .card-foot{
-    flex-direction:column;
-  }
-
-  .qty-stepper,
-  .add-btn{
-    width:100%;
-  }
-
-  .trust-strip{
-    flex-direction:column;
-  }
-
-  .trust-strip div{
-    border-right:none;
-    border-bottom:1px solid var(--line);
-  }
-
-  .footer-grid{
-    flex-direction:column;
-    gap:20px;
-  }
-
-  .drawer{
-    width:100%;
-  }
-
-  .modal{
-    width:95%;
-    padding:20px;
-  }
-
-  .method-choice,
-  .sub-choice{
-    flex-direction:column;
-  }
-}
 </style>
 </head>
 <body>
 
-<div class="announce">🚚 <strong>Free delivery within Lomé</strong> on orders over 10,000 FCFA · Order by WhatsApp, no account needed</div>
+<div class="announce">💄 <strong>Livraison gratuite à Lomé</strong> pour les commandes de plus de 10 000 FCFA · Commandez via WhatsApp, sans compte</div>
 
 <header>
   <div class="brand">
-    <div class="brand-mark">MA</div>
+    <div class="brand-mark">AB</div>
     <div>
-      <h1>Marché Adja</h1>
-      <small>Everyday staples · Lomé</small>
+      <h1>Adja Beauté</h1>
+      <small>Cosmétiques & soins · Lomé</small>
     </div>
   </div>
   <div class="header-actions">
-    <button class="icon-btn" id="darkToggle">🌙 <span id="darkLabel">Dark</span></button>
+    <button class="icon-btn" id="darkToggle">🌙 <span id="darkLabel">Sombre</span></button>
     <button class="icon-btn" id="wishBtn">♡ <span class="wish-count" id="wishCount">0</span></button>
-    <button class="icon-btn" id="cartBtn">🧺 <span id="cartLabel">Basket</span> <span class="cart-count" id="cartCount">0</span></button>
+    <button class="icon-btn" id="cartBtn">🧺 <span id="cartLabel">Panier</span> <span class="cart-count" id="cartCount">0</span></button>
   </div>
 </header>
 
 <div class="trust-strip">
-  <div>🚚 Fast delivery in Lomé</div>
-  <div>💬 Order &amp; pay via WhatsApp</div>
-  <div>🧺 Fresh stock, weekly</div>
-  <div>🏬 Pickup available in Adidogomé</div>
+  <div>🚚 Livraison rapide à Lomé</div>
+  <div>💬 Commande &amp; paiement via WhatsApp</div>
+  <div>✨ Produits authentiques, nouveautés chaque semaine</div>
+  <div>🏬 Retrait possible à Adidogomé</div>
 </div>
 
 <section class="hero">
   <div class="hero-inner">
-    <div class="eyebrow">Rice · Oil · Pantry basics</div>
-    <h2>Fair prices, honest stock,<br>your order in one message.</h2>
-    <p>Pick what you need, drop it in the basket, and we'll send everything straight to our WhatsApp — no accounts, no fuss. Pay in FCFA, choose delivery or pick it up yourself.</p>
+    <div class="eyebrow">Maquillage · Soins · Parfums</div>
+    <h2>Votre beauté au quotidien,<br>votre commande en un seul message.</h2>
+    <p>Choisissez vos produits de beauté préférés, ajoutez-les au panier, et nous envoyons tout directement sur notre WhatsApp — sans compte, sans tracas. Payez en FCFA, choisissez la livraison ou venez récupérer vous-même.</p>
     <div class="hero-cta">
-      <button class="btn" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Browse products</button>
-      <button class="btn secondary" id="heroCartBtn">View basket</button>
+      <button class="btn" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Parcourir les produits</button>
+      <button class="btn secondary" id="heroCartBtn">Voir le panier</button>
     </div>
   </div>
 </section>
@@ -481,50 +390,87 @@
 
 <section class="section" id="shop">
   <div class="section-head">
-    <h3>Today's shelf</h3>
-    <span class="mono" style="font-size:.78rem;opacity:.65;">Prices in FCFA · tap a product to read more</span>
+    <h3>Le rayon du jour</h3>
+    <span class="mono" style="font-size:.78rem;opacity:.65;">Prix en FCFA · touchez un produit pour en savoir plus</span>
   </div>
 
   <div class="controls">
     <div class="search-box">
       <span>🔎</span>
-      <input type="text" id="searchInput" placeholder="Search products…">
+      <input type="text" id="searchInput" placeholder="Rechercher des produits…">
     </div>
     <select id="sortSelect">
-      <option value="featured">Sort: Featured</option>
-      <option value="price-asc">Price: Low to High</option>
-      <option value="price-desc">Price: High to Low</option>
-      <option value="name">Name: A–Z</option>
+      <option value="featured">Trier : En vedette</option>
+      <option value="price-asc">Prix : croissant</option>
+      <option value="price-desc">Prix : décroissant</option>
+      <option value="name">Nom : A–Z</option>
     </select>
   </div>
 
   <div class="chips" id="chips"></div>
 
   <div class="grid" id="grid"></div>
-  <div class="no-results" id="noResults" style="display:none;">No products match your search — try another term or category.</div>
+  <div class="no-results" id="noResults" style="display:none;">Aucun produit ne correspond à votre recherche — essayez un autre terme ou une autre catégorie.</div>
+</section>
+
+<section class="section" id="how-it-works">
+  <div class="section-head">
+    <h3>Comment ça marche</h3>
+    <span class="mono" style="font-size:.78rem;opacity:.65;">Commander chez nous en 4 étapes simples</span>
+  </div>
+  <div class="grid" style="grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));">
+    <div class="card" style="padding:20px;">
+      <div class="card-body" style="padding:0;">
+        <div class="card-cat mono">Étape 1</div>
+        <h4>🛍️ Parcourez le rayon</h4>
+        <p style="margin:0;line-height:1.55;font-size:.9rem;opacity:.8;">Utilisez la recherche, les catégories ou le tri pour trouver ce qu'il vous faut. Touchez un produit pour voir plus de détails.</p>
+      </div>
+    </div>
+    <div class="card" style="padding:20px;">
+      <div class="card-body" style="padding:0;">
+        <div class="card-cat mono">Étape 2</div>
+        <h4>🧺 Ajoutez au panier</h4>
+        <p style="margin:0;line-height:1.55;font-size:.9rem;opacity:.8;">Cliquez sur « Ajouter au panier » et ajustez les quantités avec les boutons + et –. Votre panier se met à jour automatiquement.</p>
+      </div>
+    </div>
+    <div class="card" style="padding:20px;">
+      <div class="card-body" style="padding:0;">
+        <div class="card-cat mono">Étape 3</div>
+        <h4>📝 Passez commande</h4>
+        <p style="margin:0;line-height:1.55;font-size:.9rem;opacity:.8;">Ouvrez le panier, cliquez sur « Passer la commande », puis indiquez votre nom, téléphone, et si vous souhaitez la livraison ou le retrait en magasin.</p>
+      </div>
+    </div>
+    <div class="card" style="padding:20px;">
+      <div class="card-body" style="padding:0;">
+        <div class="card-cat mono">Étape 4</div>
+        <h4>💬 Confirmez sur WhatsApp</h4>
+        <p style="margin:0;line-height:1.55;font-size:.9rem;opacity:.8;">Un message avec le récapitulatif de votre commande s'ouvre dans WhatsApp — il ne vous reste qu'à l'envoyer. Nous confirmons ensuite la disponibilité et l'heure d'arrivée.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <footer>
   <div class="footer-grid">
     <div class="footer-col">
-      <h5>Marché Adja</h5>
+      <h5>Adja Beauté</h5>
       <p>Rue des Palmiers<br>Adidogomé, Lomé, Togo</p>
     </div>
     <div class="footer-col">
       <h5>Contact</h5>
-      <a href="#" onclick="toggleCart(true);return false;">Order via basket ↑</a>
-      <p>WhatsApp: +228 90 00 00 00</p>
+      <a href="#" onclick="toggleCart(true);return false;">Commander via le panier ↑</a>
+      <p>WhatsApp : +228 90 00 00 00</p>
     </div>
     <div class="footer-col">
-      <h5>Hours</h5>
-      <p>Mon–Sat · 8:00–19:00<br>Sun · 9:00–14:00</p>
+      <h5>Horaires</h5>
+      <p>Lun–Sam · 8h00–19h00<br>Dim · 9h00–14h00</p>
     </div>
     <div class="footer-col">
-      <h5>Good to know</h5>
-      <p>Product photos are watermarked and protected against download.</p>
+      <h5>Bon à savoir</h5>
+      <p>Les photos des produits sont filigranées et protégées contre le téléchargement.</p>
     </div>
   </div>
-  <div class="footer-bottom">© 2026 Marché Adja — Lomé, Togo.</div>
+  <div class="footer-bottom">© 2026 Adja Beauté — Lomé, Togo.</div>
 </footer>
 
 <div id="toastWrap"></div>
@@ -542,14 +488,14 @@
   <div class="drawer-backdrop" onclick="toggleCart(false)"></div>
   <div class="drawer">
     <button class="close" onclick="toggleCart(false)">✕</button>
-    <h3>Your basket</h3>
+    <h3>Votre panier</h3>
     <div class="sub-note" id="cartSubNote"></div>
     <div id="cartItems"></div>
     <div class="totals-box" id="cartTotalsBox" style="display:none;">
-      <div class="totals-row"><span>Subtotal</span><span class="mono" id="subtotalVal">0 FCFA</span></div>
+      <div class="totals-row"><span>Sous-total</span><span class="mono" id="subtotalVal">0 FCFA</span></div>
       <div class="promo-hint" id="promoHint"></div>
-      <button class="btn" style="width:100%;margin-top:14px;" id="goCheckoutBtn">Proceed to checkout</button>
-      <button class="clear-link" id="clearCartBtn">Clear basket</button>
+      <button class="btn" style="width:100%;margin-top:14px;" id="goCheckoutBtn">Passer la commande</button>
+      <button class="clear-link" id="clearCartBtn">Vider le panier</button>
     </div>
   </div>
 </div>
@@ -559,74 +505,74 @@
   <div class="modal checkout-modal" id="checkoutModalBox">
     <button class="close" onclick="toggleCheckout(false)">✕</button>
     <div id="checkoutFormWrap">
-      <h3 style="margin-bottom:4px;">Checkout</h3>
-      <p class="mono" style="font-size:.75rem;opacity:.6;margin-bottom:20px;">Order <span id="orderIdPreview"></span></p>
+      <h3 style="margin-bottom:4px;">Commande</h3>
+      <p class="mono" style="font-size:.75rem;opacity:.6;margin-bottom:20px;">Commande <span id="orderIdPreview"></span></p>
 
       <div class="field">
-        <label>Your name</label>
-        <input type="text" id="custName" placeholder="e.g. Adam">
+        <label>Votre nom</label>
+        <input type="text" id="custName" placeholder="ex. Adam">
       </div>
       <div class="field">
-        <label>Phone number</label>
+        <label>Numéro de téléphone</label>
         <input type="text" id="custPhone" placeholder="+228XXXXXXXX">
       </div>
 
       <div class="field">
-        <label>How will you get your order? (choose one)</label>
+        <label>Comment souhaitez-vous recevoir votre commande ? (choisissez une option)</label>
         <div class="method-choice">
-          <label id="lblDelivery"><input type="radio" name="method" value="delivery"> <strong>Home delivery</strong><span class="mono" style="opacity:.6;">Comes to you</span></label>
-          <label id="lblPickup"><input type="radio" name="method" value="pickup"> <strong>Store pickup</strong><span class="mono" style="opacity:.6;">You come to us</span></label>
+          <label id="lblDelivery"><input type="radio" name="method" value="delivery"> <strong>Livraison à domicile</strong><span class="mono" style="opacity:.6;">Livré chez vous</span></label>
+          <label id="lblPickup"><input type="radio" name="method" value="pickup"> <strong>Retrait en magasin</strong><span class="mono" style="opacity:.6;">Vous venez à nous</span></label>
         </div>
       </div>
 
       <div id="deliveryFields" style="display:none;">
         <div class="field">
-          <label>Delivery zone</label>
+          <label>Zone de livraison</label>
           <div class="sub-choice">
-            <label><input type="radio" name="zone" value="in" checked> Within Lomé</label>
-            <label><input type="radio" name="zone" value="out"> Outside Lomé</label>
+            <label><input type="radio" name="zone" value="in" checked> À Lomé</label>
+            <label><input type="radio" name="zone" value="out"> Hors de Lomé</label>
           </div>
         </div>
         <div class="field">
-          <label>Delivery address</label>
-          <textarea id="custAddress" rows="2" placeholder="Neighbourhood, street, landmark..."></textarea>
+          <label>Adresse de livraison</label>
+          <textarea id="custAddress" rows="2" placeholder="Quartier, rue, point de repère..."></textarea>
         </div>
       </div>
 
       <div id="pickupFields" style="display:none;">
         <div class="store-box">
-          <strong>Store address</strong>
+          <strong>Adresse du magasin</strong>
           Rue des Palmiers, Adidogomé, Lomé, Togo
-          <strong style="margin-top:10px;">Opening hours</strong>
-          Mon–Sat · 8:00 – 19:00 &nbsp;|&nbsp; Sun · 9:00 – 14:00
+          <strong style="margin-top:10px;">Heures d'ouverture</strong>
+          Lun–Sam · 8h00 – 19h00 &nbsp;|&nbsp; Dim · 9h00 – 14h00
         </div>
       </div>
 
       <div class="field">
-        <label>Order notes <span style="opacity:.55;">(optional)</span></label>
-        <textarea id="custNotes" rows="2" placeholder="e.g. call before arriving, ring the gate bell…"></textarea>
+        <label>Remarques sur la commande <span style="opacity:.55;">(facultatif)</span></label>
+        <textarea id="custNotes" rows="2" placeholder="ex. appeler avant d'arriver, sonner au portail…"></textarea>
       </div>
 
-      <div class="error-text" id="checkoutError">Please fill in your name, phone, and choose a method.</div>
+      <div class="error-text" id="checkoutError">Veuillez renseigner votre nom, téléphone, et choisir une méthode.</div>
 
       <div class="totals-box" style="border-top:1px solid var(--line);">
-        <div class="totals-row"><span>Subtotal</span><span class="mono" id="ckSubtotal">0 FCFA</span></div>
-        <div class="totals-row"><span>Delivery fee</span><span class="mono" id="ckFee">0 FCFA</span></div>
+        <div class="totals-row"><span>Sous-total</span><span class="mono" id="ckSubtotal">0 FCFA</span></div>
+        <div class="totals-row"><span>Frais de livraison</span><span class="mono" id="ckFee">0 FCFA</span></div>
         <div class="totals-row grand"><span>Total</span><span class="mono" id="ckTotal">0 FCFA</span></div>
       </div>
 
       <button class="btn whatsapp-btn" id="sendWhatsapp">
-        <span>Send order on WhatsApp</span>
+        <span>Envoyer la commande sur WhatsApp</span>
       </button>
     </div>
 
     <div id="checkoutConfirmWrap" style="display:none;">
       <div class="confirm-wrap">
         <div class="stamp">✓</div>
-        <h3>Order sent to WhatsApp</h3>
+        <h3>Commande envoyée sur WhatsApp</h3>
         <div class="confirm-order-id mono" id="confirmOrderId"></div>
-        <p>We opened WhatsApp with your order pre-filled — just hit send there to reach us. We'll confirm availability and, for deliveries, arrival time.</p>
-        <button class="btn" style="width:100%;" id="newOrderBtn">Start a new order</button>
+        <p>Nous avons ouvert WhatsApp avec votre commande pré-remplie — il ne vous reste qu'à l'envoyer pour nous joindre. Nous confirmerons la disponibilité et, pour les livraisons, l'heure d'arrivée.</p>
+        <button class="btn" style="width:100%;" id="newOrderBtn">Démarrer une nouvelle commande</button>
       </div>
     </div>
   </div>
@@ -634,7 +580,7 @@
 
 <script>
 /* ================= CONFIG ================= */
-const OWNER_WHATSAPP = "22893329977"; // <-- replace with the shop owner's real WhatsApp number, digits only, country code first
+const OWNER_WHATSAPP = "22890000000"; // <-- replace with the shop owner's real WhatsApp number, digits only, country code first
 const FREE_DELIVERY_IN_LOME_OVER = 10000;
 const FREE_DELIVERY_OUTSIDE_OVER = 20000;
 const FEE_IN_LOME = 1000;
@@ -642,49 +588,78 @@ const FEE_OUTSIDE = 2000;
 
 /* ================= PRODUCT DATA ================= */
 const products = [
-  { id:"riz", name:"White Rice (5kg)", price:6500, stock:14, emoji:"🍚", color:"#E7DDBB", category:"Grains & Pasta", isNew:false,
-    ingredients:"Long-grain white rice, 5kg bag, sourced from regional cooperatives.",
-    importance:"A staple carbohydrate for most household meals in Togo — pairs with sauces, fish and vegetables." },
-  { id:"huile", name:"Vegetable Oil (1L)", price:1300, stock:2, emoji:"🛢️", color:"#E8C468", category:"Oils & Sauces", isNew:false,
-    ingredients:"Refined vegetable (palm/soja blend) cooking oil, 1 litre bottle.",
-    importance:"Used daily for frying and sauces; a base ingredient in nearly every local recipe." },
-  { id:"sucre", name:"Sugar (1kg)", price:750, stock:0, emoji:"🧂", color:"#F1E6D3", category:"Pantry", isNew:false,
-    ingredients:"Refined white cane sugar, 1kg pack.",
-    importance:"Sweetens tea, coffee, bissap and porridge — a kitchen essential." },
-  { id:"farine", name:"Wheat Flour (1kg)", price:900, stock:9, emoji:"🌾", color:"#EAD9B8", category:"Grains & Pasta", isNew:false,
-    ingredients:"Fine wheat flour, 1kg pack, suitable for bread, beignets and sauces.",
-    importance:"Base for beignets, bread and thickened sauces prepared at home." },
-  { id:"tomate", name:"Tomato Paste (400g)", price:600, stock:3, emoji:"🍅", color:"#C94F3E", category:"Oils & Sauces", isNew:true,
-    ingredients:"Concentrated tomato paste, 400g tin.",
-    importance:"The backbone of most red sauces used with rice, yam and fufu." },
-  { id:"lait", name:"Powdered Milk (400g)", price:2200, stock:6, emoji:"🥛", color:"#F3EFE3", category:"Dairy & Drinks", isNew:false,
-    ingredients:"Full-cream powdered milk, 400g tin.",
-    importance:"Used in tea, porridge and baking when fresh milk isn't available." },
-  { id:"spaghetti", name:"Spaghetti (500g)", price:550, stock:20, emoji:"🍝", color:"#E9D9A6", category:"Grains & Pasta", isNew:true,
-    ingredients:"Durum wheat spaghetti, 500g pack.",
-    importance:"A quick, filling meal base popular for weekday lunches." },
-  { id:"savon", name:"Bar Soap (pack of 3)", price:1000, stock:1, emoji:"🧼", color:"#DCEAE3", category:"Household", isNew:false,
-    ingredients:"Multi-purpose bar soap for laundry and dishes, pack of 3.",
-    importance:"A household essential for cleaning clothes, dishes and surfaces." },
-  { id:"the", name:"Green Tea (box of 25)", price:1100, stock:8, emoji:"🍵", color:"#CFE0C7", category:"Dairy & Drinks", isNew:false,
-    ingredients:"Green tea bags, box of 25.",
-    importance:"A daily ritual drink, often shared with guests as a sign of hospitality." },
-  { id:"jus", name:"Bissap Juice (1L)", price:1200, stock:4, emoji:"🧃", color:"#D9A9C4", category:"Dairy & Drinks", isNew:true,
-    ingredients:"Hibiscus (bissap) juice concentrate, 1 litre bottle.",
-    importance:"A refreshing, locally loved drink, popular at family gatherings." },
-  { id:"detergent", name:"Laundry Powder (1kg)", price:1500, stock:5, emoji:"🫧", color:"#CFE3EA", category:"Household", isNew:false,
-    ingredients:"All-purpose laundry detergent powder, 1kg pack.",
-    importance:"Keeps clothes clean in hand-washing households, the most common laundry method locally." },
-  { id:"oeufs", name:"Eggs (tray of 30)", price:2800, stock:2, emoji:"🥚", color:"#F2E3C4", category:"Pantry", isNew:false,
-    ingredients:"Fresh chicken eggs, tray of 30.",
-    importance:"A versatile protein used across breakfast, sauces and baking." },
+  { id:"rougelevres", name:"Rouge à lèvres mat", price:3500, stock:18, icon:"lipstick", color:"#C94F6D", category:"Maquillage", isNew:false,
+    img:"https://images.pexels.com/photos/90297/pexels-photo-90297.jpeg?auto=compress&cs=tinysrgb&w=800",
+    ingredients:"Formule mate longue tenue, enrichie en vitamine E, disponible en plusieurs teintes.",
+    importance:"Le produit signature pour un look soigné en toute occasion, du quotidien aux sorties du soir." },
+  { id:"fonddeteint", name:"Fond de teint fluide", price:8500, stock:11, icon:"bottle-pump", color:"#E8C89A", category:"Maquillage", isNew:false,
+    img:"https://images.pexels.com/photos/3685523/pexels-photo-3685523.jpeg?auto=compress&cs=tinysrgb&w=800",
+    ingredients:"Fond de teint fluide à couvrance modulable, adapté aux peaux mates et foncées, avec SPF léger.",
+    importance:"Unifie le teint et offre une base impeccable pour le reste du maquillage." },
+  { id:"mascara", name:"Mascara volume intense", price:4200, stock:14, icon:"mascara", color:"#2F3A3D", category:"Maquillage", isNew:true,
+    img:"https://images.pexels.com/photos/3373728/pexels-photo-3373728.jpeg?auto=compress&cs=tinysrgb&w=800",
+    ingredients:"Formule volumatrice noire intense, sans transfert, brosse effet cils de biche.",
+    importance:"Ouvre le regard et intensifie les cils en un seul passage, sans grumeaux." },
+  { id:"palette", name:"Palette de fards à paupières", price:12000, stock:7, icon:"palette", color:"#B98D5E", category:"Maquillage", isNew:false,
+    img:"https://images.pexels.com/photos/5403545/pexels-photo-5403545.jpeg?auto=compress&cs=tinysrgb&w=800",
+    ingredients:"12 teintes mates et satinées aux pigments intenses, faciles à estomper.",
+    importance:"Permet de composer des looks du jour au soir avec une seule palette polyvalente." },
+  { id:"vernis", name:"Vernis à ongles", price:1500, stock:22, icon:"nailpolish", color:"#B23A2E", category:"Ongles", isNew:true,
+    img:"https://images.pexels.com/photos/29228985/pexels-photo-29228985.jpeg?auto=compress&cs=tinysrgb&w=800",
+    ingredients:"Vernis brillant longue tenue, séchage rapide, sans formaldéhyde.",
+    importance:"Une touche de couleur rapide pour des mains toujours soignées." },
+  { id:"cremevisage", name:"Crème hydratante visage", price:9000, stock:9, icon:"jar", color:"#F1E6D3", category:"Soins de la peau", isNew:false,
+    img:"https://images.pexels.com/photos/13794471/pexels-photo-13794471.jpeg?auto=compress&cs=tinysrgb&w=800",
+    ingredients:"Crème hydratante quotidienne au beurre de karité et à l'acide hyaluronique.",
+    importance:"Hydrate en profondeur et protège la peau du climat chaud et humide de Lomé." },
+  { id:"huilecapillaire", name:"Huile capillaire nourrissante", price:3000, stock:16, icon:"dropper", color:"#8A5A2B", category:"Cheveux", isNew:false,
+    img:"https://images.pexels.com/photos/6847858/pexels-photo-6847858.jpeg?auto=compress&cs=tinysrgb&w=800",
+    ingredients:"Mélange d'huiles de ricin, coco et argan pour fortifier et nourrir les cheveux.",
+    importance:"Renforce les cheveux fragiles et apporte brillance sans effet gras." },
+  { id:"shampooing", name:"Shampoing doux hydratant", price:3200, stock:13, icon:"shampoo", color:"#DCEAE3", category:"Cheveux", isNew:false,
+    img:"https://images.pexels.com/photos/8478987/pexels-photo-8478987.jpeg?auto=compress&cs=tinysrgb&w=800",
+    ingredients:"Shampoing sans sulfates, formulé pour cheveux crépus, bouclés et colorés.",
+    importance:"Nettoie en douceur tout en préservant l'hydratation naturelle des cheveux." },
+  { id:"parfum", name:"Eau de parfum", price:15000, stock:6, icon:"perfume", color:"#C9962C", category:"Parfums", isNew:true,
+    img:"https://images.pexels.com/photos/30970927/pexels-photo-30970927.jpeg?auto=compress&cs=tinysrgb&w=800",
+    ingredients:"Eau de parfum florale et boisée, tenue longue durée, flacon vaporisateur 50ml.",
+    importance:"Une signature olfactive élégante pour toute la journée." },
+  { id:"laitcorps", name:"Lait corporel hydratant", price:4500, stock:15, icon:"bottle-pump", color:"#F3EFE3", category:"Soins du corps", isNew:false,
+    img:"https://images.pexels.com/photos/33537354/pexels-photo-33537354.jpeg?auto=compress&cs=tinysrgb&w=800",
+    ingredients:"Lait corporel léger au beurre de cacao, absorption rapide, parfum délicat.",
+    importance:"Adoucit et hydrate la peau au quotidien, idéale après la douche." },
+  { id:"gommage", name:"Gommage corporel exfoliant", price:5000, stock:8, icon:"jar", color:"#D9A9C4", category:"Soins du corps", isNew:false,
+    img:"https://images.pexels.com/photos/10186829/pexels-photo-10186829.jpeg?auto=compress&cs=tinysrgb&w=800",
+    ingredients:"Gommage au sucre et à l'huile de coco pour éliminer les peaux mortes.",
+    importance:"Révèle une peau douce et lumineuse, idéal en soin hebdomadaire." },
+  { id:"pinceaux", name:"Set de pinceaux de maquillage", price:10000, stock:10, icon:"brushes", color:"#CFE3EA", category:"Accessoires", isNew:true,
+    img:"https://images.pexels.com/photos/5553/pexels-photo-5553.jpeg?auto=compress&cs=tinysrgb&w=800",
+    ingredients:"Set de 8 pinceaux professionnels aux poils synthétiques doux, avec pochette.",
+    importance:"L'outil indispensable pour une application précise et un fini professionnel." },
 ];
 
-const CATEGORIES = ["All", ...Array.from(new Set(products.map(p=>p.category)))];
+/* ================= PRODUCT ICONS ================= */
+function iconSVG(type){
+  const icons = {
+    "lipstick": `<svg viewBox="0 0 100 100"><path d="M40 20 L50 6 L60 20 Z" fill="rgba(255,255,255,.95)"/><rect x="40" y="20" width="20" height="26" fill="rgba(255,255,255,.75)"/><rect x="38" y="46" width="24" height="38" rx="6" fill="rgba(255,255,255,.92)"/><rect x="36" y="82" width="28" height="6" rx="2" fill="rgba(0,0,0,.28)"/></svg>`,
+    "bottle-pump": `<svg viewBox="0 0 100 100"><rect x="30" y="34" width="40" height="52" rx="8" fill="rgba(255,255,255,.9)"/><rect x="42" y="18" width="16" height="18" rx="3" fill="rgba(255,255,255,.7)"/><rect x="39" y="9" width="22" height="9" rx="2" fill="rgba(0,0,0,.3)"/><line x1="50" y1="9" x2="50" y2="2" stroke="rgba(0,0,0,.3)" stroke-width="3"/></svg>`,
+    "mascara": `<svg viewBox="0 0 100 100"><rect x="40" y="40" width="20" height="46" rx="4" fill="rgba(255,255,255,.9)"/><rect x="46" y="10" width="8" height="32" fill="rgba(0,0,0,.35)"/><rect x="40" y="4" width="20" height="8" rx="3" fill="rgba(0,0,0,.45)"/></svg>`,
+    "palette": `<svg viewBox="0 0 100 100"><rect x="14" y="20" width="72" height="60" rx="8" fill="rgba(255,255,255,.92)"/><circle cx="30" cy="38" r="7" fill="rgba(0,0,0,.25)"/><circle cx="50" cy="38" r="7" fill="rgba(0,0,0,.35)"/><circle cx="70" cy="38" r="7" fill="rgba(0,0,0,.25)"/><circle cx="30" cy="60" r="7" fill="rgba(0,0,0,.3)"/><circle cx="50" cy="60" r="7" fill="rgba(0,0,0,.2)"/><circle cx="70" cy="60" r="7" fill="rgba(0,0,0,.3)"/></svg>`,
+    "nailpolish": `<svg viewBox="0 0 100 100"><rect x="34" y="46" width="32" height="34" rx="6" fill="rgba(255,255,255,.92)"/><rect x="42" y="26" width="16" height="22" fill="rgba(255,255,255,.7)"/><rect x="40" y="14" width="20" height="14" rx="3" fill="rgba(0,0,0,.35)"/></svg>`,
+    "jar": `<svg viewBox="0 0 100 100"><ellipse cx="50" cy="34" rx="30" ry="8" fill="rgba(0,0,0,.25)"/><rect x="20" y="34" width="60" height="14" fill="rgba(0,0,0,.25)"/><rect x="24" y="46" width="52" height="36" rx="8" fill="rgba(255,255,255,.92)"/><ellipse cx="50" cy="46" rx="26" ry="6" fill="rgba(255,255,255,.6)"/></svg>`,
+    "dropper": `<svg viewBox="0 0 100 100"><rect x="36" y="40" width="28" height="44" rx="8" fill="rgba(255,255,255,.9)"/><rect x="44" y="16" width="12" height="26" fill="rgba(0,0,0,.3)"/><rect x="41" y="8" width="18" height="10" rx="3" fill="rgba(0,0,0,.4)"/><line x1="50" y1="4" x2="50" y2="8" stroke="rgba(0,0,0,.4)" stroke-width="3"/></svg>`,
+    "shampoo": `<svg viewBox="0 0 100 100"><rect x="30" y="30" width="40" height="56" rx="10" fill="rgba(255,255,255,.9)"/><rect x="40" y="14" width="20" height="18" rx="4" fill="rgba(255,255,255,.7)"/><rect x="38" y="6" width="24" height="10" rx="4" fill="rgba(0,0,0,.35)"/></svg>`,
+    "perfume": `<svg viewBox="0 0 100 100"><rect x="34" y="42" width="32" height="40" rx="4" fill="rgba(255,255,255,.92)"/><rect x="42" y="26" width="16" height="18" fill="rgba(255,255,255,.7)"/><rect x="38" y="16" width="24" height="12" rx="3" fill="rgba(0,0,0,.35)"/><circle cx="50" cy="10" r="4" fill="rgba(0,0,0,.35)"/></svg>`,
+    "brushes": `<svg viewBox="0 0 100 100"><g stroke="rgba(255,255,255,.9)" stroke-width="6" stroke-linecap="round"><line x1="30" y1="86" x2="38" y2="18"/><line x1="46" y1="86" x2="48" y2="14"/><line x1="62" y1="86" x2="58" y2="18"/><line x1="76" y1="86" x2="66" y2="24"/></g><g fill="rgba(0,0,0,.35)"><ellipse cx="38" cy="16" rx="6" ry="10"/><ellipse cx="48" cy="12" rx="6" ry="10"/><ellipse cx="58" cy="16" rx="6" ry="10"/><ellipse cx="66" cy="22" rx="6" ry="10"/></g></svg>`
+  };
+  return icons[type] || "";
+}
+
+const CATEGORIES = ["Tous", ...Array.from(new Set(products.map(p=>p.category)))];
 
 let cart = {};       // id -> qty
 let favorites = new Set();
-let activeCategory = "All";
+let activeCategory = "Tous";
 let showFavoritesOnly = false;
 let searchTerm = "";
 let sortMode = "featured";
@@ -692,9 +667,9 @@ let currentOrderId = "";
 
 /* ================= HELPERS ================= */
 function stockInfo(p){
-  if(p.stock <= 0) return {label:"Out of stock", cls:"out", disabled:true};
-  if(p.stock <= 3) return {label:`Only ${p.stock} left`, cls:"low", disabled:false};
-  return {label:"In stock", cls:"in", disabled:false};
+  if(p.stock <= 0) return {label:"Rupture de stock", cls:"out", disabled:true};
+  if(p.stock <= 3) return {label:`Plus que ${p.stock} en stock`, cls:"low", disabled:false};
+  return {label:"En stock", cls:"in", disabled:false};
 }
 function watermarkSpans(n){ return "<span>Marché Adja</span>".repeat(n); }
 function fmt(n){ return n.toLocaleString() + " FCFA"; }
@@ -713,7 +688,7 @@ function renderChips(){
   const chips = document.getElementById("chips");
   chips.innerHTML = CATEGORIES.map(c =>
     `<button class="chip ${activeCategory===c && !showFavoritesOnly ? 'active':''}" onclick="setCategory('${c}')">${c}</button>`
-  ).join("") + `<button class="chip ${showFavoritesOnly?'active':''}" onclick="toggleFavoritesFilter()">♥ Favorites</button>`;
+  ).join("") + `<button class="chip ${showFavoritesOnly?'active':''}" onclick="toggleFavoritesFilter()">♥ Favoris</button>`;
 }
 function setCategory(c){ activeCategory = c; showFavoritesOnly = false; renderChips(); renderGrid(); }
 function toggleFavoritesFilter(){ showFavoritesOnly = !showFavoritesOnly; renderChips(); renderGrid(); }
@@ -731,7 +706,7 @@ document.getElementById("sortSelect").addEventListener("change", e=>{
 function visibleProducts(){
   let list = products.slice();
   if(showFavoritesOnly) list = list.filter(p=>favorites.has(p.id));
-  else if(activeCategory !== "All") list = list.filter(p=>p.category===activeCategory);
+  else if(activeCategory !== "Tous") list = list.filter(p=>p.category===activeCategory);
   if(searchTerm) list = list.filter(p=>p.name.toLowerCase().includes(searchTerm));
   if(sortMode==="price-asc") list.sort((a,b)=>a.price-b.price);
   else if(sortMode==="price-desc") list.sort((a,b)=>b.price-a.price);
@@ -742,10 +717,10 @@ function visibleProducts(){
 function thumbHTML(p){
   const fav = favorites.has(p.id);
   return `<div class="thumb" style="background:${p.color};" onclick="openProductModal('${p.id}')">
-      <span style="position:relative;z-index:1;">${p.emoji}</span>
+      <img class="thumb-img" src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.remove()">
       <div class="wm"></div>
       <div class="wm-text">${watermarkSpans(9)}</div>
-      ${p.isNew ? `<span class="badge-new">New</span>` : ``}
+      ${p.isNew ? `<span class="badge-new">Nouveau</span>` : ``}
       <button class="fav-btn ${fav?'active':''}" onclick="event.stopPropagation();toggleFavorite('${p.id}')">${fav?'♥':'♡'}</button>
     </div>`;
 }
@@ -769,9 +744,9 @@ function renderGrid(){
         <div class="stock ${s.cls}">${s.label}</div>
         <div class="card-foot">
           ${ s.disabled
-            ? `<button class="btn add-btn" disabled>Unavailable</button>`
+            ? `<button class="btn add-btn" disabled>Indisponible</button>`
             : qty === 0
-              ? `<button class="btn add-btn" onclick="addToCart('${p.id}')">Add to basket</button>`
+              ? `<button class="btn add-btn" onclick="addToCart('${p.id}')">Ajouter au panier</button>`
               : `<div class="qty-stepper"><button onclick="changeQty('${p.id}',-1)">–</button><span>${qty}</span><button onclick="changeQty('${p.id}',1)">+</button></div>`
           }
         </div>
@@ -801,7 +776,7 @@ function openProductModal(id){
   const rel = relatedProducts(p);
   document.getElementById("productModalBody").innerHTML = `
     <div class="modal-thumb" style="background:${p.color};">
-      <span style="position:relative;z-index:1;font-size:2.6rem;">${p.emoji}</span>
+      <img class="modal-img" src="${p.img}" alt="${p.name}" onerror="this.remove()">
       <div class="wm"></div>
       <div class="wm-text">${watermarkSpans(9)}</div>
       <button class="fav-btn ${fav?'active':''}" onclick="toggleFavorite('${p.id}')">${fav?'♥':'♡'}</button>
@@ -810,17 +785,17 @@ function openProductModal(id){
     <h3>${p.name}</h3>
     <div class="stock ${s.cls}">${s.label}</div>
     <div class="price-line"><span class="tag mono">${p.price.toLocaleString()} F</span></div>
-    <div class="modal-section"><h5>Ingredients</h5><p>${p.ingredients}</p></div>
-    <div class="modal-section"><h5>Why it matters</h5><p>${p.importance}</p></div>
+    <div class="modal-section"><h5>Ingrédients</h5><p>${p.ingredients}</p></div>
+    <div class="modal-section"><h5>Pourquoi c'est important</h5><p>${p.importance}</p></div>
     <button class="btn" style="width:100%;margin-top:20px;" ${s.disabled?'disabled':''} onclick="addToCart('${p.id}');closeProductModal();">
-      ${s.disabled?'Unavailable':'Add to basket'}
+      ${s.disabled?'Indisponible':'Ajouter au panier'}
     </button>
     ${rel.length ? `
     <div class="modal-section">
-      <h5>You might also like</h5>
+      <h5>Vous pourriez aussi aimer</h5>
       <div class="related-row">
         ${rel.map(r=>`<div class="related-item" onclick="openProductModal('${r.id}')">
-          <div class="em">${r.emoji}</div>
+          <div class="em" style="background:${r.color};border-radius:8px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;margin:0 auto;opacity:1;"><img src="${r.img}" alt="${r.name}" onerror="this.remove()"></div>
           <div class="rn">${r.name}</div>
           <div class="rp mono">${r.price.toLocaleString()} F</div>
         </div>`).join("")}
@@ -838,7 +813,7 @@ function addToCart(id){
   if(current >= p.stock) return;
   cart[id] = current + 1;
   renderGrid(); renderCart();
-  showToast(`${p.name} added to basket`, "🧺");
+  showToast(`${p.name} ajouté au panier`, "🧺");
 }
 function changeQty(id, delta){
   const p = products.find(x=>x.id===id);
@@ -860,25 +835,25 @@ function renderCart(){
   const wrap = document.getElementById("cartItems");
   const entries = cartEntries();
   const sub = subtotal();
-  document.getElementById("cartSubNote").textContent = entries.length ? `${cartCountTotal()} item(s) in your basket` : "";
+  document.getElementById("cartSubNote").textContent = entries.length ? `${cartCountTotal()} article(s) dans votre panier` : "";
   if(entries.length===0){
-    wrap.innerHTML = `<div class="empty-cart">Your basket is empty.<br>Add something from the shelf.</div>`;
+    wrap.innerHTML = `<div class="empty-cart">Votre panier est vide.<br>Ajoutez quelque chose depuis le rayon.</div>`;
     document.getElementById("cartTotalsBox").style.display = "none";
     return;
   }
   wrap.innerHTML = entries.map(e => `
     <div class="cart-item">
       <div class="thumb-mini" style="background:${e.p.color};">
-        <span style="position:relative;z-index:1;">${e.p.emoji}</span>
+        <img class="thumb-img-mini" src="${e.p.img}" alt="${e.p.name}" onerror="this.remove()">
         <div class="wm"></div>
       </div>
       <div class="info">
         <div class="name">${e.p.name}</div>
-        <div class="unit">${fmt(e.p.price)} each · ${fmt(e.qty*e.p.price)}</div>
+        <div class="unit">${fmt(e.p.price)} l'unité · ${fmt(e.qty*e.p.price)}</div>
       </div>
       <div class="item-actions">
         <div class="mini-stepper"><button onclick="changeQty('${e.p.id}',-1)">–</button><span class="mono">${e.qty}</span><button onclick="changeQty('${e.p.id}',1)">+</button></div>
-        <button class="remove" onclick="removeFromCart('${e.p.id}')">remove</button>
+        <button class="remove" onclick="removeFromCart('${e.p.id}')">retirer</button>
       </div>
     </div>
   `).join("");
@@ -886,8 +861,8 @@ function renderCart(){
   document.getElementById("subtotalVal").textContent = fmt(sub);
   const remaining = FREE_DELIVERY_IN_LOME_OVER - sub;
   document.getElementById("promoHint").textContent = remaining > 0
-    ? `Add ${fmt(remaining)} more for free delivery within Lomé.`
-    : `🎉 This order qualifies for free delivery within Lomé.`;
+    ? `Ajoutez ${fmt(remaining)} de plus pour la livraison gratuite à Lomé.`
+    : `🎉 Cette commande est éligible à la livraison gratuite à Lomé.`;
 }
 
 function toggleCart(open){ document.getElementById("cartDrawerWrap").classList.toggle("open", open); }
@@ -944,7 +919,7 @@ function deliveryFee(){
 function updateCheckoutTotals(){
   const sub = subtotal(); const fee = deliveryFee();
   document.getElementById("ckSubtotal").textContent = fmt(sub);
-  document.getElementById("ckFee").textContent = fee===0 ? "Free" : fmt(fee);
+  document.getElementById("ckFee").textContent = fee===0 ? "Gratuit" : fmt(fee);
   document.getElementById("ckTotal").textContent = fmt(sub+fee);
 }
 
@@ -972,14 +947,14 @@ document.getElementById("sendWhatsapp").onclick = ()=>{
   const errEl = document.getElementById("checkoutError");
 
   let missing = [];
-  if(!name){ missing.push("name"); nameEl.classList.add("invalid"); }
-  if(!phone){ missing.push("phone"); phoneEl.classList.add("invalid"); }
-  if(!method) missing.push("delivery method");
-  if(method==="delivery" && !addrEl.value.trim()){ missing.push("address"); addrEl.classList.add("invalid"); }
+  if(!name){ missing.push("nom"); nameEl.classList.add("invalid"); }
+  if(!phone){ missing.push("téléphone"); phoneEl.classList.add("invalid"); }
+  if(!method) missing.push("méthode de livraison");
+  if(method==="delivery" && !addrEl.value.trim()){ missing.push("adresse"); addrEl.classList.add("invalid"); }
 
   if(missing.length){
     errEl.style.display = "block";
-    errEl.textContent = "Please fill in: " + missing.join(", ") + ".";
+    errEl.textContent = "Veuillez renseigner : " + missing.join(", ") + ".";
     return;
   }
   errEl.style.display = "none";
@@ -989,22 +964,22 @@ document.getElementById("sendWhatsapp").onclick = ()=>{
   const notes = document.getElementById("custNotes").value.trim();
 
   let lines = [];
-  lines.push(`New Order #${currentOrderId}`);
-  lines.push(`Customer: ${name}`);
-  lines.push(`Phone: ${phone}`);
-  lines.push(`Products:`);
+  lines.push(`Nouvelle commande #${currentOrderId}`);
+  lines.push(`Client : ${name}`);
+  lines.push(`Téléphone : ${phone}`);
+  lines.push(`Produits :`);
   entries.forEach(e => lines.push(`- ${e.p.name} x${e.qty}`));
-  lines.push(`Subtotal: ${sub.toLocaleString()} FCFA`);
-  lines.push(`Delivery Fee: ${fee===0 ? "Free" : fee.toLocaleString() + " FCFA"}`);
-  lines.push(`Total: ${total.toLocaleString()} FCFA`);
-  lines.push(`Delivery Method: ${method==="delivery" ? "Home Delivery" : "Store Pickup"}`);
+  lines.push(`Sous-total : ${sub.toLocaleString()} FCFA`);
+  lines.push(`Frais de livraison : ${fee===0 ? "Gratuit" : fee.toLocaleString() + " FCFA"}`);
+  lines.push(`Total : ${total.toLocaleString()} FCFA`);
+  lines.push(`Méthode : ${method==="delivery" ? "Livraison à domicile" : "Retrait en magasin"}`);
   if(method==="delivery"){
-    lines.push(`Zone: ${selectedZone()==="in" ? "Within Lomé" : "Outside Lomé"}`);
-    lines.push(`Address: ${addrEl.value.trim()}`);
+    lines.push(`Zone : ${selectedZone()==="in" ? "À Lomé" : "Hors de Lomé"}`);
+    lines.push(`Adresse : ${addrEl.value.trim()}`);
   } else {
-    lines.push(`Pickup at: Rue des Palmiers, Adidogomé, Lomé`);
+    lines.push(`Retrait à : Rue des Palmiers, Adidogomé, Lomé`);
   }
-  if(notes) lines.push(`Notes: ${notes}`);
+  if(notes) lines.push(`Remarques : ${notes}`);
 
   const message = encodeURIComponent(lines.join("\n"));
   window.open(`https://wa.me/${OWNER_WHATSAPP}?text=${message}`, "_blank");
@@ -1023,7 +998,7 @@ document.getElementById("newOrderBtn").onclick = ()=>{
 document.getElementById("darkToggle").onclick = ()=>{
   const isDark = document.body.getAttribute("data-theme") === "dark";
   document.body.setAttribute("data-theme", isDark ? "light" : "dark");
-  document.getElementById("darkLabel").textContent = isDark ? "Dark" : "Light";
+  document.getElementById("darkLabel").textContent = isDark ? "Sombre" : "Clair";
 };
 
 /* ================= IMAGE PROTECTION ================= */
