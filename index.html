@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marché Adja — Everyday Staples from Lomé</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..800&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2A28;
+    --paper:#F5EEDD;
+    --paper-soft:#EFE6D0;
+    --gold:#C9962C;
+    --gold-soft:#E8C468;
+    --palm:#2F6F5E;
+    --palm-soft:#DCEAE3;
+    --paprika:#B23A2E;
+    --line: rgba(27,42,40,0.16);
+    --card-bg: #FFFDF6;
+    --shadow: 0 10px 30px -18px rgba(27,42,40,0.55);
+    --shadow-lg: 0 24px 60px -24px rgba(27,42,40,0.45);
+    --radius: 14px;
+    color-scheme: light;
+  }
+  [data-theme="dark"]{
+    --ink:#F3EEDD;
+    --paper:#12201D;
+    --paper-soft:#182B27;
+    --card-bg:#182B27;
+    --line: rgba(243,238,221,0.14);
+    --shadow: 0 10px 34px -16px rgba(0,0,0,0.7);
+    --shadow-lg: 0 26px 60px -20px rgba(0,0,0,0.75);
+    --palm-soft:#1E3833;
+    color-scheme: dark;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    transition:background .35s ease, color .35s ease;
+  }
+  h1,h2,h3, .display{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .mono{ font-family:'IBM Plex Mono', monospace; letter-spacing:0.01em; }
+  a{color:inherit;}
+  img{-webkit-user-drag:none; user-select:none; pointer-events:none;}
+  ::selection{ background:var(--gold-soft); }
+  *:focus-visible{ outline:2px solid var(--palm); outline-offset:2px; }
+
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+  @keyframes popIn{ from{opacity:0; transform:scale(.92);} to{opacity:1; transform:scale(1);} }
+  @keyframes slideDown{ from{opacity:0; transform:translateY(-6px);} to{opacity:1; transform:translateY(0);} }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001s !important; transition-duration:.001s !important; }
+  }
+
+  .weave{
+    height:14px;
+    background-image: repeating-linear-gradient(135deg, var(--line) 0 6px, transparent 6px 14px),
+                       repeating-linear-gradient(45deg, var(--line) 0 6px, transparent 6px 14px);
+    opacity:.6;
+  }
+
+  /* ---------- announcement bar ---------- */
+  .announce{
+    background:var(--ink); color:var(--paper); text-align:center; font-size:.78rem;
+    padding:8px 14px; font-family:'IBM Plex Mono',monospace; letter-spacing:.02em;
+  }
+  .announce strong{ color:var(--gold-soft); }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:40;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 5vw;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{ display:flex; align-items:center; gap:10px; }
+  .brand-mark{
+    width:38px; height:38px; border-radius:50%;
+    background:conic-gradient(from 210deg, var(--gold), var(--palm), var(--gold));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-weight:800; color:var(--paper); font-size:16px;
+    flex-shrink:0;
+  }
+  .brand h1{ font-size:1.25rem; }
+  .brand small{ display:block; font-size:.68rem; text-transform:uppercase; letter-spacing:.14em; opacity:.65; }
+  .header-actions{ display:flex; align-items:center; gap:10px; }
+  .icon-btn{
+    border:1px solid var(--line); background:var(--card-bg); color:var(--ink);
+    border-radius:999px; padding:9px 14px; cursor:pointer; font-family:inherit; font-size:.85rem;
+    display:flex; align-items:center; gap:8px; transition:transform .15s ease, box-shadow .15s ease;
+    position:relative;
+  }
+  .icon-btn:hover{ transform:translateY(-1px); box-shadow:var(--shadow); }
+  .cart-count{
+    background:var(--paprika); color:#fff; border-radius:999px; min-width:20px; height:20px;
+    font-size:.7rem; display:flex; align-items:center; justify-content:center; padding:0 5px;
+  }
+  .wish-count{
+    background:var(--palm); color:#fff; border-radius:999px; min-width:20px; height:20px;
+    font-size:.7rem; display:flex; align-items:center; justify-content:center; padding:0 5px;
+  }
+
+  /* ---------- trust strip ---------- */
+  .trust-strip{
+    display:flex; gap:0; flex-wrap:wrap; border-bottom:1px solid var(--line); background:var(--paper-soft);
+  }
+  .trust-strip div{
+    flex:1; min-width:150px; text-align:center; padding:12px 10px; font-size:.76rem;
+    font-family:'IBM Plex Mono',monospace; border-right:1px solid var(--line);
+  }
+  .trust-strip div:last-child{ border-right:none; }
+
+  /* ---------- hero ---------- */
+  .hero{ padding:60px 5vw 36px; position:relative; overflow:hidden; }
+  .hero-inner{ max-width:640px; animation:fadeUp .6s ease both; }
+  .eyebrow{ font-size:.72rem; text-transform:uppercase; letter-spacing:.2em; color:var(--palm); }
+  [data-theme="dark"] .eyebrow{ color:var(--gold); }
+  .hero h2{ font-size:clamp(2.1rem,5vw,3.4rem); line-height:1.05; margin-top:10px; }
+  .hero p{ margin-top:16px; max-width:480px; opacity:.8; line-height:1.55; }
+  .hero-cta{ margin-top:26px; display:flex; gap:12px; flex-wrap:wrap; }
+  .btn{
+    font-family:'IBM Plex Mono', monospace; font-size:.82rem; border-radius:10px; padding:12px 20px;
+    border:1px solid var(--ink); cursor:pointer; transition:transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+    background:var(--ink); color:var(--paper);
+  }
+  .btn.secondary{ background:transparent; color:var(--ink); }
+  .btn.ghost{ background:none; border:1px solid var(--line); color:var(--ink); }
+  .btn:hover{ transform:translateY(-2px); box-shadow:var(--shadow); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; }
+
+  /* ---------- controls: search / filter / sort ---------- */
+  .section{ padding:20px 5vw 70px; }
+  .section-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:22px; flex-wrap:wrap; gap:10px;}
+  .section-head h3{ font-size:1.6rem; }
+  .controls{
+    display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin-bottom:18px;
+  }
+  .search-box{
+    flex:1; min-width:200px; display:flex; align-items:center; gap:8px;
+    border:1px solid var(--line); border-radius:10px; padding:10px 14px; background:var(--card-bg);
+  }
+  .search-box input{ border:none; background:none; outline:none; color:var(--ink); font-family:'Work Sans'; font-size:.9rem; width:100%; }
+  select#sortSelect{
+    border:1px solid var(--line); border-radius:10px; padding:10px 12px; background:var(--card-bg); color:var(--ink);
+    font-family:'IBM Plex Mono',monospace; font-size:.78rem; cursor:pointer;
+  }
+  .chips{ display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; margin-bottom:18px; }
+  .chip{
+    flex-shrink:0; border:1px solid var(--line); border-radius:999px; padding:8px 16px; font-size:.8rem;
+    cursor:pointer; background:var(--card-bg); font-family:'IBM Plex Mono',monospace; transition:all .15s ease;
+    white-space:nowrap;
+  }
+  .chip.active{ background:var(--palm); color:#fff; border-color:var(--palm); }
+  [data-theme="dark"] .chip.active{ background:var(--gold); color:var(--ink); border-color:var(--gold); }
+  .no-results{ text-align:center; padding:60px 0; opacity:.6; font-family:'IBM Plex Mono',monospace; }
+
+  /* ---------- product grid ---------- */
+  .grid{ display:grid; gap:22px; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); }
+  .card{
+    background:var(--card-bg); border:1px solid var(--line); border-radius:var(--radius);
+    overflow:hidden; display:flex; flex-direction:column; box-shadow:var(--shadow);
+    animation:fadeUp .5s ease both; transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+  .thumb{
+    position:relative; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
+    font-size:2.6rem; cursor:pointer; overflow:hidden; transition:transform .3s ease;
+  }
+  .card:hover .thumb{ transform:scale(1.03); }
+  .thumb .wm{
+    position:absolute; inset:0;
+    background-image:repeating-linear-gradient(-35deg, rgba(255,255,255,0.16) 0 2px, transparent 2px 46px);
+    mix-blend-mode:overlay; pointer-events:none;
+  }
+  .thumb .wm-text{
+    position:absolute; inset:0; display:flex; flex-wrap:wrap; align-content:space-around; justify-content:space-around;
+    transform:rotate(-28deg) scale(1.4); opacity:.28; pointer-events:none;
+  }
+  .thumb .wm-text span{ font-family:'IBM Plex Mono',monospace; font-size:.62rem; letter-spacing:.08em; white-space:nowrap; color:#fff; text-transform:uppercase;}
+  .fav-btn{
+    position:absolute; top:8px; right:8px; z-index:2; background:rgba(255,255,255,.85); border:none;
+    width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:.95rem; display:flex; align-items:center; justify-content:center;
+    transition:transform .15s ease;
+  }
+  .fav-btn:hover{ transform:scale(1.12); }
+  .fav-btn.active{ background:var(--paprika); color:#fff; }
+  .badge-new{
+    position:absolute; top:8px; left:8px; z-index:2; background:var(--gold); color:var(--ink);
+    font-family:'IBM Plex Mono',monospace; font-size:.62rem; text-transform:uppercase; letter-spacing:.06em;
+    padding:3px 8px; border-radius:6px;
+  }
+  .card-body{ padding:16px; display:flex; flex-direction:column; gap:8px; flex:1; }
+  .card-cat{ font-family:'IBM Plex Mono',monospace; font-size:.66rem; text-transform:uppercase; letter-spacing:.1em; opacity:.55; }
+  .card-title-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+  .card-body h4{ font-family:'Fraunces',serif; font-weight:600; font-size:1.05rem; cursor:pointer; }
+  .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:.85rem; font-weight:600;
+    background:var(--gold); color:var(--ink); padding:5px 10px;
+    clip-path: polygon(0% 15%, 8% 0%, 92% 0%, 100% 15%, 100% 85%, 92% 100%, 8% 100%, 0% 85%);
+    white-space:nowrap;
+  }
+  .stock{ font-size:.72rem; font-family:'IBM Plex Mono',monospace; padding:3px 0; display:flex; align-items:center; gap:6px;}
+  .stock::before{ content:''; width:7px; height:7px; border-radius:50%; display:inline-block; }
+  .stock.in::before{ background:var(--palm); }
+  .stock.low::before{ background:var(--gold); }
+  .stock.out::before{ background:var(--paprika); }
+  .stock.in{ color:var(--palm); }
+  .stock.low{ color:var(--gold); }
+  .stock.out{ color:var(--paprika); }
+  .card-foot{ display:flex; gap:8px; margin-top:auto; }
+  .qty-stepper{ display:flex; align-items:center; border:1px solid var(--line); border-radius:8px; overflow:hidden; flex:1; justify-content:space-between; }
+  .qty-stepper button{ background:none; border:none; width:32px; height:34px; cursor:pointer; font-size:1rem; color:var(--ink);}
+  .qty-stepper span{ min-width:24px; text-align:center; font-family:'IBM Plex Mono',monospace; }
+  .add-btn{ flex:1; }
+
+  /* ---------- toast ---------- */
+  #toastWrap{ position:fixed; bottom:22px; left:50%; transform:translateX(-50%); z-index:200; display:flex; flex-direction:column; gap:8px; align-items:center; }
+  .toast{
+    background:var(--ink); color:var(--paper); padding:11px 18px; border-radius:999px; font-size:.82rem;
+    font-family:'IBM Plex Mono',monospace; box-shadow:var(--shadow-lg); animation:popIn .25s ease both;
+    display:flex; align-items:center; gap:8px;
+  }
+
+  /* ---------- modal / drawer shared ---------- */
+  .overlay{
+    position:fixed; inset:0; background:rgba(10,15,14,.55); backdrop-filter:blur(2px);
+    display:none; align-items:center; justify-content:center; z-index:100; padding:20px;
+  }
+  .overlay.open{ display:flex; }
+  .modal{
+    background:var(--card-bg); border-radius:var(--radius); max-width:480px; width:100%;
+    padding:28px; position:relative; max-height:88vh; overflow:auto; border:1px solid var(--line);
+    animation:popIn .25s ease both;
+  }
+  .modal .close, .drawer .close{
+    position:absolute; top:16px; right:16px; background:none; border:none; font-size:1.3rem; cursor:pointer; color:var(--ink);
+  }
+  .modal-thumb{ height:150px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:3rem; margin-bottom:16px; position:relative; overflow:hidden;}
+  .modal h3{ font-size:1.4rem; margin-bottom:2px; }
+  .modal .price-line{ display:flex; align-items:center; gap:12px; margin:10px 0 16px; }
+  .modal-section{ margin-top:14px; }
+  .modal-section h5{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; text-transform:uppercase; letter-spacing:.12em; color:var(--palm); margin-bottom:6px; }
+  [data-theme="dark"] .modal-section h5{ color:var(--gold); }
+  .modal-section p{ margin:0; line-height:1.55; font-size:.92rem; opacity:.88; }
+  .related-row{ display:flex; gap:10px; margin-top:8px; }
+  .related-item{ flex:1; border:1px solid var(--line); border-radius:10px; padding:8px; cursor:pointer; text-align:center; transition:border-color .15s ease; }
+  .related-item:hover{ border-color:var(--palm); }
+  .related-item .em{ font-size:1.4rem; }
+  .related-item .rn{ font-size:.68rem; margin-top:4px; }
+  .related-item .rp{ font-family:'IBM Plex Mono',monospace; font-size:.7rem; opacity:.7; }
+
+  /* ---------- cart drawer ---------- */
+  .drawer-wrap{ position:fixed; inset:0; z-index:110; display:none; }
+  .drawer-wrap.open{ display:block; }
+  .drawer-backdrop{ position:absolute; inset:0; background:rgba(10,15,14,.5); }
+  .drawer{
+    position:absolute; right:0; top:0; bottom:0; width:min(400px, 92vw);
+    background:var(--paper); border-left:1px solid var(--line);
+    display:flex; flex-direction:column; padding:24px; overflow-y:auto;
+    animation:slideDown .25s ease both;
+  }
+  .drawer h3{ margin-bottom:6px; }
+  .drawer .sub-note{ font-size:.76rem; opacity:.6; margin-bottom:16px; font-family:'IBM Plex Mono',monospace;}
+  .cart-item{ display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--line); align-items:center; }
+  .cart-item .thumb-mini{ width:52px; height:52px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; position:relative; overflow:hidden;}
+  .cart-item .info{ flex:1; }
+  .cart-item .info .name{ font-weight:600; font-size:.92rem; }
+  .cart-item .info .unit{ font-size:.75rem; opacity:.6; font-family:'IBM Plex Mono',monospace; }
+  .cart-item .item-actions{ display:flex; flex-direction:column; align-items:flex-end; gap:6px; }
+  .cart-item .remove{ background:none; border:none; cursor:pointer; color:var(--paprika); font-size:.72rem; font-family:'IBM Plex Mono',monospace; }
+  .mini-stepper{ display:flex; align-items:center; gap:6px; }
+  .mini-stepper button{ width:22px; height:22px; border-radius:5px; border:1px solid var(--line); background:var(--card-bg); cursor:pointer; font-size:.8rem; line-height:1; }
+  .empty-cart{ text-align:center; opacity:.6; padding:40px 0; font-family:'IBM Plex Mono',monospace; font-size:.85rem; }
+  .totals-box{ margin-top:auto; padding-top:16px; border-top:1px solid var(--line); }
+  .totals-row{ display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:.85rem; margin:6px 0; }
+  .totals-row.grand{ font-size:1.1rem; font-weight:600; margin-top:10px; }
+  .promo-hint{ font-size:.72rem; opacity:.65; margin-top:6px; font-family:'IBM Plex Mono',monospace; }
+  .clear-link{ background:none; border:none; text-decoration:underline; cursor:pointer; font-size:.76rem; opacity:.65; font-family:'IBM Plex Mono',monospace; margin-top:4px; align-self:flex-start; }
+
+  /* ---------- checkout ---------- */
+  .checkout-modal{ max-width:480px; }
+  .field{ margin-bottom:14px; }
+  .field label{ display:block; font-size:.78rem; font-family:'IBM Plex Mono',monospace; margin-bottom:6px; opacity:.75;}
+  .field input, .field textarea{
+    width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--line);
+    background:var(--paper-soft); color:var(--ink); font-family:'Work Sans',sans-serif; font-size:.92rem;
+  }
+  .field input.invalid, .field textarea.invalid{ border-color:var(--paprika); }
+  .method-choice{ display:flex; gap:10px; margin-bottom:18px; }
+  .method-choice label{
+    flex:1; border:1px solid var(--line); border-radius:10px; padding:12px; cursor:pointer;
+    display:flex; flex-direction:column; gap:2px; font-size:.85rem; transition:border-color .15s ease, background .15s ease;
+  }
+  .method-choice input{ margin-right:8px; accent-color:var(--palm); }
+  .method-choice label.active{ border-color:var(--palm); background:var(--paper-soft); }
+  .sub-choice{ display:flex; gap:10px; margin-bottom:14px;}
+  .sub-choice label{ flex:1; border:1px solid var(--line); border-radius:8px; padding:8px 10px; font-size:.78rem; cursor:pointer; display:flex; align-items:center; gap:6px;}
+  .store-box{ background:var(--paper-soft); border-radius:10px; padding:14px 16px; font-size:.85rem; line-height:1.6; }
+  .store-box strong{ display:block; font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--palm); margin-bottom:4px;}
+  [data-theme="dark"] .store-box strong{ color:var(--gold); }
+  .whatsapp-btn{
+    width:100%; background:#25D366; color:#0b1b14; border:none; margin-top:18px;
+    display:flex; align-items:center; justify-content:center; gap:10px; font-weight:600;
+  }
+  .error-text{ color:var(--paprika); font-size:.78rem; margin-top:-8px; margin-bottom:10px; display:none; }
+
+  /* ---------- confirmation ---------- */
+  .confirm-wrap{ text-align:center; padding:10px 0 4px; }
+  .confirm-wrap .stamp{
+    width:64px; height:64px; border-radius:50%; background:var(--palm); color:#fff; display:flex; align-items:center;
+    justify-content:center; font-size:1.8rem; margin:0 auto 16px; animation:popIn .35s ease both;
+  }
+  .confirm-wrap h3{ font-size:1.3rem; margin-bottom:8px; }
+  .confirm-wrap p{ font-size:.88rem; opacity:.75; line-height:1.5; margin-bottom:18px; }
+  .confirm-order-id{ font-family:'IBM Plex Mono',monospace; background:var(--paper-soft); display:inline-block; padding:6px 14px; border-radius:8px; margin-bottom:18px; }
+
+  footer{ padding:36px 5vw 50px; border-top:1px solid var(--line); font-size:.82rem; }
+  .footer-grid{ display:flex; gap:30px; flex-wrap:wrap; justify-content:space-between; margin-bottom:20px;}
+  .footer-col h5{ font-family:'IBM Plex Mono',monospace; font-size:.7rem; text-transform:uppercase; letter-spacing:.1em; color:var(--palm); margin-bottom:8px; }
+  [data-theme="dark"] .footer-col h5{ color:var(--gold); }
+  .footer-col p, .footer-col a{ opacity:.75; line-height:1.6; display:block; text-decoration:none; margin-bottom:2px;}
+  .footer-bottom{ text-align:center; opacity:.55; font-size:.75rem; border-top:1px solid var(--line); padding-top:16px; }
+
+  @media (max-width:560px){
+    .hero{ padding:40px 5vw 26px; }
+    .method-choice{ flex-direction:column; }
+    .trust-strip div{ border-right:none; border-bottom:1px solid var(--line); }
+    .brand small{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="announce">🚚 <strong>Free delivery within Lomé</strong> on orders over 10,000 FCFA · Order by WhatsApp, no account needed</div>
+
+<header>
+  <div class="brand">
+    <div class="brand-mark">MA</div>
+    <div>
+      <h1>Marché Adja</h1>
+      <small>Everyday staples · Lomé</small>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="icon-btn" id="darkToggle">🌙 <span id="darkLabel">Dark</span></button>
+    <button class="icon-btn" id="wishBtn">♡ <span class="wish-count" id="wishCount">0</span></button>
+    <button class="icon-btn" id="cartBtn">🧺 <span id="cartLabel">Basket</span> <span class="cart-count" id="cartCount">0</span></button>
+  </div>
+</header>
+
+<div class="trust-strip">
+  <div>🚚 Fast delivery in Lomé</div>
+  <div>💬 Order &amp; pay via WhatsApp</div>
+  <div>🧺 Fresh stock, weekly</div>
+  <div>🏬 Pickup available in Adidogomé</div>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Rice · Oil · Pantry basics</div>
+    <h2>Fair prices, honest stock,<br>your order in one message.</h2>
+    <p>Pick what you need, drop it in the basket, and we'll send everything straight to our WhatsApp — no accounts, no fuss. Pay in FCFA, choose delivery or pick it up yourself.</p>
+    <div class="hero-cta">
+      <button class="btn" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Browse products</button>
+      <button class="btn secondary" id="heroCartBtn">View basket</button>
+    </div>
+  </div>
+</section>
+<div class="weave"></div>
+
+<section class="section" id="shop">
+  <div class="section-head">
+    <h3>Today's shelf</h3>
+    <span class="mono" style="font-size:.78rem;opacity:.65;">Prices in FCFA · tap a product to read more</span>
+  </div>
+
+  <div class="controls">
+    <div class="search-box">
+      <span>🔎</span>
+      <input type="text" id="searchInput" placeholder="Search products…">
+    </div>
+    <select id="sortSelect">
+      <option value="featured">Sort: Featured</option>
+      <option value="price-asc">Price: Low to High</option>
+      <option value="price-desc">Price: High to Low</option>
+      <option value="name">Name: A–Z</option>
+    </select>
+  </div>
+
+  <div class="chips" id="chips"></div>
+
+  <div class="grid" id="grid"></div>
+  <div class="no-results" id="noResults" style="display:none;">No products match your search — try another term or category.</div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h5>Marché Adja</h5>
+      <p>Rue des Palmiers<br>Adidogomé, Lomé, Togo</p>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a href="#" onclick="toggleCart(true);return false;">Order via basket ↑</a>
+      <p>WhatsApp: +228 90 00 00 00</p>
+    </div>
+    <div class="footer-col">
+      <h5>Hours</h5>
+      <p>Mon–Sat · 8:00–19:00<br>Sun · 9:00–14:00</p>
+    </div>
+    <div class="footer-col">
+      <h5>Good to know</h5>
+      <p>Product photos are watermarked and protected against download.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Marché Adja — Lomé, Togo.</div>
+</footer>
+
+<div id="toastWrap"></div>
+
+<!-- Product detail modal -->
+<div class="overlay" id="productOverlay">
+  <div class="modal" id="productModal">
+    <button class="close" onclick="closeProductModal()">✕</button>
+    <div id="productModalBody"></div>
+  </div>
+</div>
+
+<!-- Cart drawer -->
+<div class="drawer-wrap" id="cartDrawerWrap">
+  <div class="drawer-backdrop" onclick="toggleCart(false)"></div>
+  <div class="drawer">
+    <button class="close" onclick="toggleCart(false)">✕</button>
+    <h3>Your basket</h3>
+    <div class="sub-note" id="cartSubNote"></div>
+    <div id="cartItems"></div>
+    <div class="totals-box" id="cartTotalsBox" style="display:none;">
+      <div class="totals-row"><span>Subtotal</span><span class="mono" id="subtotalVal">0 FCFA</span></div>
+      <div class="promo-hint" id="promoHint"></div>
+      <button class="btn" style="width:100%;margin-top:14px;" id="goCheckoutBtn">Proceed to checkout</button>
+      <button class="clear-link" id="clearCartBtn">Clear basket</button>
+    </div>
+  </div>
+</div>
+
+<!-- Checkout modal -->
+<div class="overlay" id="checkoutOverlay">
+  <div class="modal checkout-modal" id="checkoutModalBox">
+    <button class="close" onclick="toggleCheckout(false)">✕</button>
+    <div id="checkoutFormWrap">
+      <h3 style="margin-bottom:4px;">Checkout</h3>
+      <p class="mono" style="font-size:.75rem;opacity:.6;margin-bottom:20px;">Order <span id="orderIdPreview"></span></p>
+
+      <div class="field">
+        <label>Your name</label>
+        <input type="text" id="custName" placeholder="e.g. Adam">
+      </div>
+      <div class="field">
+        <label>Phone number</label>
+        <input type="text" id="custPhone" placeholder="+228XXXXXXXX">
+      </div>
+
+      <div class="field">
+        <label>How will you get your order? (choose one)</label>
+        <div class="method-choice">
+          <label id="lblDelivery"><input type="radio" name="method" value="delivery"> <strong>Home delivery</strong><span class="mono" style="opacity:.6;">Comes to you</span></label>
+          <label id="lblPickup"><input type="radio" name="method" value="pickup"> <strong>Store pickup</strong><span class="mono" style="opacity:.6;">You come to us</span></label>
+        </div>
+      </div>
+
+      <div id="deliveryFields" style="display:none;">
+        <div class="field">
+          <label>Delivery zone</label>
+          <div class="sub-choice">
+            <label><input type="radio" name="zone" value="in" checked> Within Lomé</label>
+            <label><input type="radio" name="zone" value="out"> Outside Lomé</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Delivery address</label>
+          <textarea id="custAddress" rows="2" placeholder="Neighbourhood, street, landmark..."></textarea>
+        </div>
+      </div>
+
+      <div id="pickupFields" style="display:none;">
+        <div class="store-box">
+          <strong>Store address</strong>
+          Rue des Palmiers, Adidogomé, Lomé, Togo
+          <strong style="margin-top:10px;">Opening hours</strong>
+          Mon–Sat · 8:00 – 19:00 &nbsp;|&nbsp; Sun · 9:00 – 14:00
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Order notes <span style="opacity:.55;">(optional)</span></label>
+        <textarea id="custNotes" rows="2" placeholder="e.g. call before arriving, ring the gate bell…"></textarea>
+      </div>
+
+      <div class="error-text" id="checkoutError">Please fill in your name, phone, and choose a method.</div>
+
+      <div class="totals-box" style="border-top:1px solid var(--line);">
+        <div class="totals-row"><span>Subtotal</span><span class="mono" id="ckSubtotal">0 FCFA</span></div>
+        <div class="totals-row"><span>Delivery fee</span><span class="mono" id="ckFee">0 FCFA</span></div>
+        <div class="totals-row grand"><span>Total</span><span class="mono" id="ckTotal">0 FCFA</span></div>
+      </div>
+
+      <button class="btn whatsapp-btn" id="sendWhatsapp">
+        <span>Send order on WhatsApp</span>
+      </button>
+    </div>
+
+    <div id="checkoutConfirmWrap" style="display:none;">
+      <div class="confirm-wrap">
+        <div class="stamp">✓</div>
+        <h3>Order sent to WhatsApp</h3>
+        <div class="confirm-order-id mono" id="confirmOrderId"></div>
+        <p>We opened WhatsApp with your order pre-filled — just hit send there to reach us. We'll confirm availability and, for deliveries, arrival time.</p>
+        <button class="btn" style="width:100%;" id="newOrderBtn">Start a new order</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= CONFIG ================= */
+const OWNER_WHATSAPP = "22890000000"; // <-- replace with the shop owner's real WhatsApp number, digits only, country code first
+const FREE_DELIVERY_IN_LOME_OVER = 10000;
+const FREE_DELIVERY_OUTSIDE_OVER = 20000;
+const FEE_IN_LOME = 1000;
+const FEE_OUTSIDE = 2000;
+
+/* ================= PRODUCT DATA ================= */
+const products = [
+  { id:"riz", name:"White Rice (5kg)", price:6500, stock:14, emoji:"🍚", color:"#E7DDBB", category:"Grains & Pasta", isNew:false,
+    ingredients:"Long-grain white rice, 5kg bag, sourced from regional cooperatives.",
+    importance:"A staple carbohydrate for most household meals in Togo — pairs with sauces, fish and vegetables." },
+  { id:"huile", name:"Vegetable Oil (1L)", price:1300, stock:2, emoji:"🛢️", color:"#E8C468", category:"Oils & Sauces", isNew:false,
+    ingredients:"Refined vegetable (palm/soja blend) cooking oil, 1 litre bottle.",
+    importance:"Used daily for frying and sauces; a base ingredient in nearly every local recipe." },
+  { id:"sucre", name:"Sugar (1kg)", price:750, stock:0, emoji:"🧂", color:"#F1E6D3", category:"Pantry", isNew:false,
+    ingredients:"Refined white cane sugar, 1kg pack.",
+    importance:"Sweetens tea, coffee, bissap and porridge — a kitchen essential." },
+  { id:"farine", name:"Wheat Flour (1kg)", price:900, stock:9, emoji:"🌾", color:"#EAD9B8", category:"Grains & Pasta", isNew:false,
+    ingredients:"Fine wheat flour, 1kg pack, suitable for bread, beignets and sauces.",
+    importance:"Base for beignets, bread and thickened sauces prepared at home." },
+  { id:"tomate", name:"Tomato Paste (400g)", price:600, stock:3, emoji:"🍅", color:"#C94F3E", category:"Oils & Sauces", isNew:true,
+    ingredients:"Concentrated tomato paste, 400g tin.",
+    importance:"The backbone of most red sauces used with rice, yam and fufu." },
+  { id:"lait", name:"Powdered Milk (400g)", price:2200, stock:6, emoji:"🥛", color:"#F3EFE3", category:"Dairy & Drinks", isNew:false,
+    ingredients:"Full-cream powdered milk, 400g tin.",
+    importance:"Used in tea, porridge and baking when fresh milk isn't available." },
+  { id:"spaghetti", name:"Spaghetti (500g)", price:550, stock:20, emoji:"🍝", color:"#E9D9A6", category:"Grains & Pasta", isNew:true,
+    ingredients:"Durum wheat spaghetti, 500g pack.",
+    importance:"A quick, filling meal base popular for weekday lunches." },
+  { id:"savon", name:"Bar Soap (pack of 3)", price:1000, stock:1, emoji:"🧼", color:"#DCEAE3", category:"Household", isNew:false,
+    ingredients:"Multi-purpose bar soap for laundry and dishes, pack of 3.",
+    importance:"A household essential for cleaning clothes, dishes and surfaces." },
+  { id:"the", name:"Green Tea (box of 25)", price:1100, stock:8, emoji:"🍵", color:"#CFE0C7", category:"Dairy & Drinks", isNew:false,
+    ingredients:"Green tea bags, box of 25.",
+    importance:"A daily ritual drink, often shared with guests as a sign of hospitality." },
+  { id:"jus", name:"Bissap Juice (1L)", price:1200, stock:4, emoji:"🧃", color:"#D9A9C4", category:"Dairy & Drinks", isNew:true,
+    ingredients:"Hibiscus (bissap) juice concentrate, 1 litre bottle.",
+    importance:"A refreshing, locally loved drink, popular at family gatherings." },
+  { id:"detergent", name:"Laundry Powder (1kg)", price:1500, stock:5, emoji:"🫧", color:"#CFE3EA", category:"Household", isNew:false,
+    ingredients:"All-purpose laundry detergent powder, 1kg pack.",
+    importance:"Keeps clothes clean in hand-washing households, the most common laundry method locally." },
+  { id:"oeufs", name:"Eggs (tray of 30)", price:2800, stock:2, emoji:"🥚", color:"#F2E3C4", category:"Pantry", isNew:false,
+    ingredients:"Fresh chicken eggs, tray of 30.",
+    importance:"A versatile protein used across breakfast, sauces and baking." },
+];
+
+const CATEGORIES = ["All", ...Array.from(new Set(products.map(p=>p.category)))];
+
+let cart = {};       // id -> qty
+let favorites = new Set();
+let activeCategory = "All";
+let showFavoritesOnly = false;
+let searchTerm = "";
+let sortMode = "featured";
+let currentOrderId = "";
+
+/* ================= HELPERS ================= */
+function stockInfo(p){
+  if(p.stock <= 0) return {label:"Out of stock", cls:"out", disabled:true};
+  if(p.stock <= 3) return {label:`Only ${p.stock} left`, cls:"low", disabled:false};
+  return {label:"In stock", cls:"in", disabled:false};
+}
+function watermarkSpans(n){ return "<span>Marché Adja</span>".repeat(n); }
+function fmt(n){ return n.toLocaleString() + " FCFA"; }
+
+function showToast(msg, icon="✓"){
+  const wrap = document.getElementById("toastWrap");
+  const t = document.createElement("div");
+  t.className = "toast";
+  t.innerHTML = `<span>${icon}</span><span>${msg}</span>`;
+  wrap.appendChild(t);
+  setTimeout(()=>{ t.style.transition="opacity .3s ease"; t.style.opacity="0"; setTimeout(()=>t.remove(),300); }, 1900);
+}
+
+/* ================= FILTER CHIPS ================= */
+function renderChips(){
+  const chips = document.getElementById("chips");
+  chips.innerHTML = CATEGORIES.map(c =>
+    `<button class="chip ${activeCategory===c && !showFavoritesOnly ? 'active':''}" onclick="setCategory('${c}')">${c}</button>`
+  ).join("") + `<button class="chip ${showFavoritesOnly?'active':''}" onclick="toggleFavoritesFilter()">♥ Favorites</button>`;
+}
+function setCategory(c){ activeCategory = c; showFavoritesOnly = false; renderChips(); renderGrid(); }
+function toggleFavoritesFilter(){ showFavoritesOnly = !showFavoritesOnly; renderChips(); renderGrid(); }
+
+document.getElementById("searchInput").addEventListener("input", e=>{
+  searchTerm = e.target.value.trim().toLowerCase();
+  renderGrid();
+});
+document.getElementById("sortSelect").addEventListener("change", e=>{
+  sortMode = e.target.value;
+  renderGrid();
+});
+
+/* ================= RENDER PRODUCTS ================= */
+function visibleProducts(){
+  let list = products.slice();
+  if(showFavoritesOnly) list = list.filter(p=>favorites.has(p.id));
+  else if(activeCategory !== "All") list = list.filter(p=>p.category===activeCategory);
+  if(searchTerm) list = list.filter(p=>p.name.toLowerCase().includes(searchTerm));
+  if(sortMode==="price-asc") list.sort((a,b)=>a.price-b.price);
+  else if(sortMode==="price-desc") list.sort((a,b)=>b.price-a.price);
+  else if(sortMode==="name") list.sort((a,b)=>a.name.localeCompare(b.name));
+  return list;
+}
+
+function thumbHTML(p){
+  const fav = favorites.has(p.id);
+  return `<div class="thumb" style="background:${p.color};" onclick="openProductModal('${p.id}')">
+      <span style="position:relative;z-index:1;">${p.emoji}</span>
+      <div class="wm"></div>
+      <div class="wm-text">${watermarkSpans(9)}</div>
+      ${p.isNew ? `<span class="badge-new">New</span>` : ``}
+      <button class="fav-btn ${fav?'active':''}" onclick="event.stopPropagation();toggleFavorite('${p.id}')">${fav?'♥':'♡'}</button>
+    </div>`;
+}
+
+function renderGrid(){
+  const grid = document.getElementById("grid");
+  const list = visibleProducts();
+  document.getElementById("noResults").style.display = list.length===0 ? "block" : "none";
+  grid.innerHTML = list.map(p => {
+    const s = stockInfo(p);
+    const qty = cart[p.id] || 0;
+    return `
+    <div class="card">
+      ${thumbHTML(p)}
+      <div class="card-body">
+        <div class="card-cat">${p.category}</div>
+        <div class="card-title-row">
+          <h4 onclick="openProductModal('${p.id}')">${p.name}</h4>
+          <span class="tag mono">${p.price.toLocaleString()} F</span>
+        </div>
+        <div class="stock ${s.cls}">${s.label}</div>
+        <div class="card-foot">
+          ${ s.disabled
+            ? `<button class="btn add-btn" disabled>Unavailable</button>`
+            : qty === 0
+              ? `<button class="btn add-btn" onclick="addToCart('${p.id}')">Add to basket</button>`
+              : `<div class="qty-stepper"><button onclick="changeQty('${p.id}',-1)">–</button><span>${qty}</span><button onclick="changeQty('${p.id}',1)">+</button></div>`
+          }
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function toggleFavorite(id){
+  if(favorites.has(id)) favorites.delete(id); else favorites.add(id);
+  document.getElementById("wishCount").textContent = favorites.size;
+  renderGrid();
+  if(document.getElementById("productOverlay").classList.contains("open") && activeProductId===id) openProductModal(id);
+}
+document.getElementById("wishBtn").onclick = ()=>{ toggleFavoritesFilter(); document.getElementById('shop').scrollIntoView({behavior:'smooth'}); };
+
+/* ================= PRODUCT MODAL ================= */
+let activeProductId = null;
+function relatedProducts(p){
+  return products.filter(x=>x.category===p.category && x.id!==p.id).slice(0,2);
+}
+function openProductModal(id){
+  const p = products.find(x=>x.id===id);
+  activeProductId = id;
+  const s = stockInfo(p);
+  const fav = favorites.has(id);
+  const rel = relatedProducts(p);
+  document.getElementById("productModalBody").innerHTML = `
+    <div class="modal-thumb" style="background:${p.color};">
+      <span style="position:relative;z-index:1;font-size:2.6rem;">${p.emoji}</span>
+      <div class="wm"></div>
+      <div class="wm-text">${watermarkSpans(9)}</div>
+      <button class="fav-btn ${fav?'active':''}" onclick="toggleFavorite('${p.id}')">${fav?'♥':'♡'}</button>
+    </div>
+    <div class="card-cat">${p.category}</div>
+    <h3>${p.name}</h3>
+    <div class="stock ${s.cls}">${s.label}</div>
+    <div class="price-line"><span class="tag mono">${p.price.toLocaleString()} F</span></div>
+    <div class="modal-section"><h5>Ingredients</h5><p>${p.ingredients}</p></div>
+    <div class="modal-section"><h5>Why it matters</h5><p>${p.importance}</p></div>
+    <button class="btn" style="width:100%;margin-top:20px;" ${s.disabled?'disabled':''} onclick="addToCart('${p.id}');closeProductModal();">
+      ${s.disabled?'Unavailable':'Add to basket'}
+    </button>
+    ${rel.length ? `
+    <div class="modal-section">
+      <h5>You might also like</h5>
+      <div class="related-row">
+        ${rel.map(r=>`<div class="related-item" onclick="openProductModal('${r.id}')">
+          <div class="em">${r.emoji}</div>
+          <div class="rn">${r.name}</div>
+          <div class="rp mono">${r.price.toLocaleString()} F</div>
+        </div>`).join("")}
+      </div>
+    </div>` : ``}
+  `;
+  document.getElementById("productOverlay").classList.add("open");
+}
+function closeProductModal(){ document.getElementById("productOverlay").classList.remove("open"); }
+
+/* ================= CART ================= */
+function addToCart(id){
+  const p = products.find(x=>x.id===id);
+  const current = cart[id] || 0;
+  if(current >= p.stock) return;
+  cart[id] = current + 1;
+  renderGrid(); renderCart();
+  showToast(`${p.name} added to basket`, "🧺");
+}
+function changeQty(id, delta){
+  const p = products.find(x=>x.id===id);
+  let q = (cart[id]||0) + delta;
+  if(q <= 0){ delete cart[id]; }
+  else if(q <= p.stock){ cart[id] = q; }
+  renderGrid(); renderCart();
+}
+function removeFromCart(id){ delete cart[id]; renderGrid(); renderCart(); }
+function clearCart(){ cart = {}; renderGrid(); renderCart(); }
+document.getElementById("clearCartBtn").onclick = clearCart;
+
+function cartEntries(){ return Object.entries(cart).map(([id,qty])=>({p:products.find(x=>x.id===id), qty})); }
+function subtotal(){ return cartEntries().reduce((sum,e)=>sum + e.p.price*e.qty, 0); }
+function cartCountTotal(){ return Object.values(cart).reduce((a,b)=>a+b,0); }
+
+function renderCart(){
+  document.getElementById("cartCount").textContent = cartCountTotal();
+  const wrap = document.getElementById("cartItems");
+  const entries = cartEntries();
+  const sub = subtotal();
+  document.getElementById("cartSubNote").textContent = entries.length ? `${cartCountTotal()} item(s) in your basket` : "";
+  if(entries.length===0){
+    wrap.innerHTML = `<div class="empty-cart">Your basket is empty.<br>Add something from the shelf.</div>`;
+    document.getElementById("cartTotalsBox").style.display = "none";
+    return;
+  }
+  wrap.innerHTML = entries.map(e => `
+    <div class="cart-item">
+      <div class="thumb-mini" style="background:${e.p.color};">
+        <span style="position:relative;z-index:1;">${e.p.emoji}</span>
+        <div class="wm"></div>
+      </div>
+      <div class="info">
+        <div class="name">${e.p.name}</div>
+        <div class="unit">${fmt(e.p.price)} each · ${fmt(e.qty*e.p.price)}</div>
+      </div>
+      <div class="item-actions">
+        <div class="mini-stepper"><button onclick="changeQty('${e.p.id}',-1)">–</button><span class="mono">${e.qty}</span><button onclick="changeQty('${e.p.id}',1)">+</button></div>
+        <button class="remove" onclick="removeFromCart('${e.p.id}')">remove</button>
+      </div>
+    </div>
+  `).join("");
+  document.getElementById("cartTotalsBox").style.display = "block";
+  document.getElementById("subtotalVal").textContent = fmt(sub);
+  const remaining = FREE_DELIVERY_IN_LOME_OVER - sub;
+  document.getElementById("promoHint").textContent = remaining > 0
+    ? `Add ${fmt(remaining)} more for free delivery within Lomé.`
+    : `🎉 This order qualifies for free delivery within Lomé.`;
+}
+
+function toggleCart(open){ document.getElementById("cartDrawerWrap").classList.toggle("open", open); }
+document.getElementById("cartBtn").onclick = ()=>toggleCart(true);
+document.getElementById("heroCartBtn").onclick = ()=>toggleCart(true);
+
+/* ================= CHECKOUT ================= */
+function makeOrderId(){
+  const d = new Date();
+  const ymd = d.getFullYear().toString() + String(d.getMonth()+1).padStart(2,"0") + String(d.getDate()).padStart(2,"0");
+  const seq = String(Math.floor(Math.random()*900)+100);
+  return `ORD-${ymd}-${seq}`;
+}
+
+function resetCheckoutForm(){
+  document.getElementById("checkoutFormWrap").style.display = "block";
+  document.getElementById("checkoutConfirmWrap").style.display = "none";
+  document.getElementById("custName").value = "";
+  document.getElementById("custPhone").value = "";
+  document.getElementById("custAddress").value = "";
+  document.getElementById("custNotes").value = "";
+  document.querySelectorAll('input[name="method"]').forEach(r=>r.checked=false);
+  document.querySelector('input[name="zone"][value="in"]').checked = true;
+  document.getElementById("deliveryFields").style.display = "none";
+  document.getElementById("pickupFields").style.display = "none";
+  document.getElementById("lblDelivery").classList.remove("active");
+  document.getElementById("lblPickup").classList.remove("active");
+  document.getElementById("checkoutError").style.display = "none";
+  document.querySelectorAll(".invalid").forEach(el=>el.classList.remove("invalid"));
+}
+
+function toggleCheckout(open){
+  const ov = document.getElementById("checkoutOverlay");
+  if(open){
+    if(cartCountTotal()===0) return;
+    resetCheckoutForm();
+    currentOrderId = makeOrderId();
+    document.getElementById("orderIdPreview").textContent = "#" + currentOrderId;
+    updateCheckoutTotals();
+  }
+  ov.classList.toggle("open", open);
+}
+document.getElementById("goCheckoutBtn").onclick = ()=>{ toggleCart(false); toggleCheckout(true); };
+
+function selectedMethod(){ const el = document.querySelector('input[name="method"]:checked'); return el ? el.value : null; }
+function selectedZone(){ const el = document.querySelector('input[name="zone"]:checked'); return el ? el.value : "in"; }
+function deliveryFee(){
+  const m = selectedMethod();
+  if(m !== "delivery") return 0;
+  const sub = subtotal();
+  if(selectedZone()==="in") return sub >= FREE_DELIVERY_IN_LOME_OVER ? 0 : FEE_IN_LOME;
+  return sub >= FREE_DELIVERY_OUTSIDE_OVER ? 0 : FEE_OUTSIDE;
+}
+function updateCheckoutTotals(){
+  const sub = subtotal(); const fee = deliveryFee();
+  document.getElementById("ckSubtotal").textContent = fmt(sub);
+  document.getElementById("ckFee").textContent = fee===0 ? "Free" : fmt(fee);
+  document.getElementById("ckTotal").textContent = fmt(sub+fee);
+}
+
+document.querySelectorAll('input[name="method"]').forEach(r=>{
+  r.addEventListener("change", ()=>{
+    const m = selectedMethod();
+    document.getElementById("deliveryFields").style.display = m==="delivery" ? "block" : "none";
+    document.getElementById("pickupFields").style.display = m==="pickup" ? "block" : "none";
+    document.getElementById("lblDelivery").classList.toggle("active", m==="delivery");
+    document.getElementById("lblPickup").classList.toggle("active", m==="pickup");
+    updateCheckoutTotals();
+  });
+});
+document.querySelectorAll('input[name="zone"]').forEach(r=> r.addEventListener("change", updateCheckoutTotals));
+
+document.getElementById("sendWhatsapp").onclick = ()=>{
+  const nameEl = document.getElementById("custName");
+  const phoneEl = document.getElementById("custPhone");
+  const addrEl = document.getElementById("custAddress");
+  [nameEl,phoneEl,addrEl].forEach(el=>el.classList.remove("invalid"));
+
+  const name = nameEl.value.trim();
+  const phone = phoneEl.value.trim();
+  const method = selectedMethod();
+  const errEl = document.getElementById("checkoutError");
+
+  let missing = [];
+  if(!name){ missing.push("name"); nameEl.classList.add("invalid"); }
+  if(!phone){ missing.push("phone"); phoneEl.classList.add("invalid"); }
+  if(!method) missing.push("delivery method");
+  if(method==="delivery" && !addrEl.value.trim()){ missing.push("address"); addrEl.classList.add("invalid"); }
+
+  if(missing.length){
+    errEl.style.display = "block";
+    errEl.textContent = "Please fill in: " + missing.join(", ") + ".";
+    return;
+  }
+  errEl.style.display = "none";
+
+  const entries = cartEntries();
+  const sub = subtotal(); const fee = deliveryFee(); const total = sub + fee;
+  const notes = document.getElementById("custNotes").value.trim();
+
+  let lines = [];
+  lines.push(`New Order #${currentOrderId}`);
+  lines.push(`Customer: ${name}`);
+  lines.push(`Phone: ${phone}`);
+  lines.push(`Products:`);
+  entries.forEach(e => lines.push(`- ${e.p.name} x${e.qty}`));
+  lines.push(`Subtotal: ${sub.toLocaleString()} FCFA`);
+  lines.push(`Delivery Fee: ${fee===0 ? "Free" : fee.toLocaleString() + " FCFA"}`);
+  lines.push(`Total: ${total.toLocaleString()} FCFA`);
+  lines.push(`Delivery Method: ${method==="delivery" ? "Home Delivery" : "Store Pickup"}`);
+  if(method==="delivery"){
+    lines.push(`Zone: ${selectedZone()==="in" ? "Within Lomé" : "Outside Lomé"}`);
+    lines.push(`Address: ${addrEl.value.trim()}`);
+  } else {
+    lines.push(`Pickup at: Rue des Palmiers, Adidogomé, Lomé`);
+  }
+  if(notes) lines.push(`Notes: ${notes}`);
+
+  const message = encodeURIComponent(lines.join("\n"));
+  window.open(`https://wa.me/${OWNER_WHATSAPP}?text=${message}`, "_blank");
+
+  document.getElementById("confirmOrderId").textContent = "#" + currentOrderId;
+  document.getElementById("checkoutFormWrap").style.display = "none";
+  document.getElementById("checkoutConfirmWrap").style.display = "block";
+};
+
+document.getElementById("newOrderBtn").onclick = ()=>{
+  clearCart();
+  toggleCheckout(false);
+};
+
+/* ================= DARK MODE ================= */
+document.getElementById("darkToggle").onclick = ()=>{
+  const isDark = document.body.getAttribute("data-theme") === "dark";
+  document.body.setAttribute("data-theme", isDark ? "light" : "dark");
+  document.getElementById("darkLabel").textContent = isDark ? "Dark" : "Light";
+};
+
+/* ================= IMAGE PROTECTION ================= */
+document.addEventListener("contextmenu", e=>{
+  if(e.target.closest(".thumb, .thumb-mini, .modal-thumb")) e.preventDefault();
+});
+document.addEventListener("dragstart", e=>{
+  if(e.target.closest(".thumb, .thumb-mini, .modal-thumb")) e.preventDefault();
+});
+
+/* ================= INIT ================= */
+renderChips();
+renderGrid();
+renderCart();
+</script>
+</body>
+</html>
